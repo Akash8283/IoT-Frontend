@@ -1,37 +1,35 @@
-import React from 'react'
-import { AlertTriangle, CheckCircle, Clock } from "lucide-react";
-import { useState, useEffect } from 'react';
-import {  recentAlertsAPI } from '../../../services/allAPI';
+import React, { useEffect, useState } from 'react'
+import { getUserRecentAlertAPI } from '../../../services/allAPI';
+import { AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 
 
-function RecentAlerts() {
- 
-    const [recentAlerts,setRecentAlerts] = useState([])
-    console.log(recentAlerts);
-    
-    useEffect(()=>{
-      const token = sessionStorage.getItem("token")
-      getRecentAlerts(token)
-      const interval = setInterval(()=>{
-        getRecentAlerts(token)
-      },5000)
-      return ()=> clearInterval(interval)
-    },[])
+function RecentAlersUser() {
 
-    const getRecentAlerts = async(token)=>{
-        const reqHeader = {
-            "Authorization" : `Bearer ${token}`
-          }
-        const result = await recentAlertsAPI(reqHeader)  
-        if (result.status ==200) {
-          setRecentAlerts(result.data)
-        }
-        else{
-          console.log(result);
-        }
-    }
+   const [recentAlerts,setRecentAlerts] = useState([])
+       console.log(recentAlerts);
+       
+       useEffect(()=>{
+         const token = sessionStorage.getItem("token")
+         getRecentAlerts(token)
+         const interval = setInterval(()=>{
+           getRecentAlerts(token)
+         },5000)
+         return ()=> clearInterval(interval)
+       },[])
+   
+       const getRecentAlerts = async(token)=>{
+           const reqHeader = {
+               "Authorization" : `Bearer ${token}`
+             }
+           const result = await getUserRecentAlertAPI(reqHeader)  
+           if (result.status ==200) {
+             setRecentAlerts(result.data)
+           }
+           else{
+             console.log(result);
+           }
+       }
 
-  
   return (
     <div className="bg-white rounded-xl shadow border border-gray-100">
 
@@ -43,13 +41,13 @@ function RecentAlerts() {
       </div>
 
       {/* Alert list */}
-      <div className="divide-y divide-gray-200">
+      <div className="divide-y divide-gray-100">
         {
           recentAlerts?.length>0 ?
           recentAlerts?.map((alert) => (
           <div
             key={alert?._id}
-            className={alert?.severity=="high"?`px-6 py-4 flex items-start justify-between ${alert?.status == "active"?"bg-red-50":"bg-green-50"}`:`px-6 py-4 flex items-start justify-between ${alert?.status == "active"?"bg-yellow-50":"bg-green-50"}`}
+            className={alert?.severity=="high"?`px-6 py-4 flex items-start justify-between ${alert?.status=="active"?"bg-red-50":"bg-green-50"}`:`px-6 py-4 flex items-start justify-between ${alert?.status=="active"?"bg-yellow-50":"bg-green-50"}`}
           >
             <div className="flex gap-4">
 
@@ -76,17 +74,7 @@ function RecentAlerts() {
                   {alert?.message}
                 </p>
                 <p className="text-sm text-gray-500">
-                 {alert?.device?.deviceID}
-                </p>
-
-                <p className='text-sm text-gray-500'>
-                   {alert?.status == "active" ?"Not Resolved":`Resolved by: ${alert?.resolvedBy?.username}`}
-                </p>
-                <p className='text-sm text-gray-500'>
-                 resolved at : {alert?.resolvedAt?  new Date(alert?.resolvedAt).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                     }): '—'}
+                  Device: {alert?.device?.deviceID}
                 </p>
               </div>
             </div>
@@ -111,4 +99,5 @@ function RecentAlerts() {
   )
 }
 
-export default RecentAlerts
+
+export default RecentAlersUser

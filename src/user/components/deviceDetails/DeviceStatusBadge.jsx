@@ -1,7 +1,8 @@
+import { Wifi, WifiOff } from 'lucide-react';
 import React from 'react'
 
 function DeviceStatusBadge({status}) {
-   const isOnline = status.toLowerCase() === 'online';
+   const isOnline = status === 'online';
 
   return (
     <span
@@ -11,11 +12,9 @@ function DeviceStatusBadge({status}) {
           : 'bg-rose-100 text-rose-700'
       }`}
     >
-      <span
-        className={`w-2 h-2 rounded-full ${
-          isOnline ? 'bg-emerald-500' : 'bg-rose-500'
-        }`}
-      />
+      {
+        isOnline?<Wifi/>:<WifiOff/>
+      }
       {isOnline ? 'Online' : 'Offline'}
     </span>
   );

@@ -1,11 +1,15 @@
 import React from 'react';
 import { X, Thermometer, Droplets, BatteryCharging, AlertTriangle, Clock } from 'lucide-react';
 import DeviceStatusBadge from './DeviceStatusBadge';
+import MetricsChart from '../charts/MetricsChart';
 
-function DeviceDetails({ device, onClose }) {
+function DeviceDetails({ device, metrices,onClose }) {
+  // console.log(device);
+  console.log(metrices);
+  const chartData = Array.isArray(metrices)?metrices:metrices?[metrices]:[]
   // If no device is selected, don't render anything
   if (!device) return null;
-
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       
@@ -14,7 +18,7 @@ function DeviceDetails({ device, onClose }) {
         <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-10">
           <div>
             <h2 className="text-xl font-bold text-slate-800 flex items-center gap-3">
-              {device.id}
+              {device.deviceID}
               <DeviceStatusBadge status={device.status || "online"} />
             </h2>
             <p className="text-sm text-slate-500 flex items-center gap-2 mt-1">
@@ -32,38 +36,41 @@ function DeviceDetails({ device, onClose }) {
         <div className="p-6 overflow-y-auto space-y-8 bg-slate-50/50">
 
           {/* Stats row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          
+            
+              <div  className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase mb-2">
                   <BatteryCharging className="w-4 h-4" /> Battery
                </div>
-               <p className={`text-2xl font-bold ${device.battery < 20 ? 'text-amber-500' : 'text-emerald-600'}`}>
-                 {device.battery}%
+               <p className={`text-2xl font-bold ${metrices.battery < 10 ? 'text-red-500' : 'text-emerald-600'}`}>
+                 {metrices.battery}%
                </p>
             </div>
             
-            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+            {/* <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase mb-2">
                   <Clock className="w-4 h-4" /> Last Seen
                </div>
                <p className="text-lg font-bold text-slate-700">{device.lastSeen}</p>
-            </div>
+            </div> */}
 
              {/* Placeholders for real sensor data */}
             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase mb-2">
                   <Thermometer className="w-4 h-4" /> Temp
                </div>
-               <p className="text-2xl font-bold text-slate-700">24°C</p>
+               <p className={`text-2xl font-bold ${metrices.temperature > 70 ? 'text-red-500' : 'text-emerald-600'}`}>{metrices.temperature}°C</p>
             </div>
 
             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase mb-2">
                   <Droplets className="w-4 h-4" /> Humidity
                </div>
-               <p className="text-2xl font-bold text-slate-700">45%</p>
+               <p className={`text-2xl font-bold ${metrices.humidity < 20 ? 'text-yellow-500' : 'text-emerald-600'}`}>{metrices.humidity}%</p>
             </div>
           </div>
+           
 
           {/* Charts Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -72,8 +79,8 @@ function DeviceDetails({ device, onClose }) {
               <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
                 <Thermometer className="w-4 h-4 text-blue-500" /> Temperature
               </h3>
-              <div className="h-48 bg-slate-50 rounded-lg border border-dashed border-slate-200 flex items-center justify-center text-slate-400 text-sm">
-                [ Chart Component Here ]
+              <div className="h-68 bg-slate-50 rounded-lg border border-dashed border-slate-200 flex items-center justify-center text-slate-400 text-sm">
+                <MetricsChart data={chartData} dataKey="temperature" color="#3b82f6" unit="°C"/>
               </div>
             </div>
 
@@ -82,13 +89,13 @@ function DeviceDetails({ device, onClose }) {
               <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
                 <Droplets className="w-4 h-4 text-blue-500" /> Humidity
               </h3>
-              <div className="h-48 bg-slate-50 rounded-lg border border-dashed border-slate-200 flex items-center justify-center text-slate-400 text-sm">
-                [ Chart Component Here ]
+              <div className="h-68 bg-slate-50 rounded-lg border border-dashed border-slate-200 flex items-center justify-center text-slate-400 text-sm">
+                <MetricsChart data={chartData} dataKey="humidity" color="#06b6d4" unit="%"/>
               </div>
             </div>
           </div>
 
-          {/* Alerts Section */}
+          {/* Alerts Section
           <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-5">
             <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
                <AlertTriangle className="w-4 h-4 text-amber-500" /> Recent Alerts
@@ -109,7 +116,7 @@ function DeviceDetails({ device, onClose }) {
                 </div>
               </li>
             </ul>
-          </div>
+          </div> */}
 
         </div>
         
@@ -120,9 +127,9 @@ function DeviceDetails({ device, onClose }) {
             >
                 Close
             </button>
-            <button className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition text-sm font-medium shadow-md shadow-blue-200">
+            {/* <button className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition text-sm font-medium shadow-md shadow-blue-200">
                 Download Report
-            </button>
+            </button> */}
         </div>
 
       </div>

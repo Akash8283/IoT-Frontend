@@ -1,4 +1,4 @@
-import { X, Server } from "lucide-react";
+import { X, Server, Wifi, WifiOff } from "lucide-react";
 
 function UserDevicesModal({ user, onClose }) {
   if (!user) return null;
@@ -50,15 +50,12 @@ function UserDevicesModal({ user, onClose }) {
                   </div>
                 </div>
 
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    device.status === "online"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
-                >
-                  {device.status}
-                </span>
+                {
+                    device.status=="online"?
+                    <span className='text-green-700 bg-green-100 text-xs rounded-full px-3 py-1 font-medium flex items-center gap-2'><Wifi/> Online</span>
+                    :
+                    <span className='text-red-700 bg-red-100 text-xs rounded-full px-3 py-1 font-medium flex items-center gap-2'><WifiOff/> Offline</span>
+                  }
               </div>
             ))
           )}

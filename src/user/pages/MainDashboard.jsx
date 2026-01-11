@@ -1,6 +1,5 @@
 import React from 'react'
 import SideBar from '../components/layout/SideBar'
-import UserDashboard from './UserDashboard'
 
 function MainDashboard() {
   return (

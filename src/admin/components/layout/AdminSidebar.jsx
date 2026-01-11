@@ -8,6 +8,7 @@ import AdminProfile from '../tabs/AdminProfile'
 import ManageDevice from '../tabs/ManageDevice'
 import ManageUsers from '../tabs/ManageUsers'
 import { adminDetailsAPI } from '../../../services/allAPI'
+import AllAlerts from '../tabs/AllAlerts'
 
 function AdminSidebar() {
 
@@ -49,18 +50,22 @@ function AdminSidebar() {
                     Dashboard
                 </Link>
                 <Link onClick={()=>setTab(2)} className={tab==2?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
+                    <LayoutDashboard size={20} />
+                    Alerts
+                </Link>
+                <Link onClick={()=>setTab(3)} className={tab==3?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
                     <Plus size={20} />
                     Add Devices
                 </Link>
-                <Link onClick={()=>setTab(3)} className={tab==3?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
+                <Link onClick={()=>setTab(4)} className={tab==4?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
                     <Server size={20} />
                     Manage Devices
                 </Link>
-                <Link onClick={()=>setTab(4)} className={tab==4?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
+                <Link onClick={()=>setTab(5)} className={tab==5?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
                     <Users size={20} />
                     Manage Users
                 </Link>
-                <Link onClick={()=>setTab(5)} className={tab==5?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
+                <Link onClick={()=>setTab(6)} className={tab==6?"flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl shadow-lg shadow-blue-900/20":"flex items-center gap-3 px-4 py-3 hover:bg-blue-950 hover:rounded-xl"}>
                     <User size={20} />
                     Profile
                 </Link>
@@ -73,7 +78,7 @@ function AdminSidebar() {
       />
       <div>
         <p className="text-sm font-semibold text-white">{adminDetails.username}</p>
-        <p className="text-xs text-slate-400">Admin</p>
+        <p className="text-xs text-slate-400">{adminDetails.role}</p>
       </div>
     </div>
             </aside>
@@ -83,18 +88,22 @@ function AdminSidebar() {
             }
             {
               tab==2 &&
-              <AddDevice/>
+              <AllAlerts/>
             }
             {
               tab==3 &&
-              <ManageDevice/>
+              <AddDevice/>
             }
             {
               tab==4 &&
-              <ManageUsers/>
+              <ManageDevice/>
             }
             {
               tab==5 &&
+              <ManageUsers/>
+            }
+            {
+              tab==6 &&
               <AdminProfile adminDetails={adminDetails}/>
             }
     </div>

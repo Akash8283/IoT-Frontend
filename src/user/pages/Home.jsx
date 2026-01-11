@@ -54,9 +54,6 @@ function Home() {
               Get Started Now
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <button className="px-8 py-4 rounded-xl bg-white text-slate-700 font-semibold text-lg border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-all duration-300">
-              View Demo
-            </button>
           </div>
         </div>
       </section>

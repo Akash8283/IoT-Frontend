@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CheckCircle, XCircle, Trash2, CrossIcon } from "lucide-react";
+import { CheckCircle, XCircle, Trash2, CrossIcon, Wifi, WifiOff } from "lucide-react";
 import { approveDeviceAPI, deleteDeviceAPI, disableDeviceAPI, getAllDeviceAPI } from '../../../services/allAPI';
 import { toast,ToastContainer } from 'react-toastify'
 
@@ -138,8 +138,13 @@ function ManageDevice() {
                 <td className="px-6 py-4">{device?.location}</td>
                 <td className="px-6 py-4">{device?.assignedUser?.username}</td>
                 {/* Status */}
-                <td className="px-6 py-4">
-                  <span className='text-red-700 bg-red-100 text-xs rounded-full px-3 py-1 font-medium'>Offline</span>
+                <td className="px-6 py-4 flex">
+                  {
+                    device.status=="online"?
+                    <span className='text-green-700 bg-green-100 text-xs rounded-full px-3 py-1 font-medium flex items-center gap-2'><Wifi/> Online</span>
+                    :
+                    <span className='text-red-700 bg-red-100 text-xs rounded-full px-3 py-1 font-medium flex items-center gap-2'><WifiOff/> Offline</span>
+                  }
                 </td>
 
                 {/* Approval */}

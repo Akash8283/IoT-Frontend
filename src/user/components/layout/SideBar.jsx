@@ -1,14 +1,40 @@
 import { LayoutDashboard, Server, User, AlertTriangle } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import UserDashboard from '../../pages/UserDashboard'
-import Devices from '../../pages/Devices'
-import Profile from '../../pages/Profile'
-import Alerts from '../../pages/Alerts'
+import UserDashboard from '../../user/UserDashboard'
+import Profile from '../../user/Profile'
+import Alerts from '../deviceDetails/Alerts'
+import Devices from '../deviceDetails/Devices'
+import { getMetricesAPI, getUserDevicesAPI } from '../../../services/allAPI'
+import { toast} from 'react-toastify'
 
 function SideBar() {
 
   const [tab,setTab] = useState(1)
+
+  const [deviceDetails,setDeviceDetails] = useState([])
+  const deviceCount = deviceDetails.map(d=>d).length
+  
+
+    useEffect(()=>{
+        const token = sessionStorage.getItem("token")
+        getAllDevices(token)
+      },[])
+    
+      const getAllDevices = async(token)=>{
+         const reqHeader = {
+            "Authorization" : `Bearer ${token}`
+          }
+         const result = await getUserDevicesAPI(reqHeader)
+         if (result.status == 200) {
+          setDeviceDetails(result.data)
+         }
+         else{
+          console.log(result);
+         }
+  }    
+   
+  const user = JSON.parse(sessionStorage.getItem("user"))
 
   return (
     <div>
@@ -44,18 +70,18 @@ function SideBar() {
         className="w-10 h-10 rounded-full border-2 border-slate-600"
       />
       <div>
-        <p className="text-sm font-semibold text-white">Akash</p>
-        <p className="text-xs text-slate-400">user</p>
+        <p className="text-sm font-semibold text-white">{user.username}</p>
+        <p className="text-xs text-slate-400">{user.role}</p>
       </div>
     </div>
             </aside>
             {
                 tab==1 &&
-                <UserDashboard/>
+                <UserDashboard deviceDetails={deviceDetails} onv/>
                }
                {
                 tab==2 &&
-                <Devices/>
+                <Devices deviceDetails={deviceDetails} />
                }
                {
                 tab==3 &&
@@ -63,8 +89,9 @@ function SideBar() {
                }
                {
                 tab==4 &&
-                <Profile/>
+                <Profile count={deviceCount}/>
                }
+               
     </div>
   )
 }
