@@ -18,11 +18,11 @@ The UI is designed to handle real-time data updates while maintaining performanc
 
 🛠️ Tech Stack
 
-React.js
-Tailwind CSS
-Recharts
-Axios
-React Router
+React.js,
+Tailwind CSS,
+Recharts,
+Axios,
+React Router,
 Lucide Icons
 
 Backend_URL = https://github.com/Akash8283/IoT-Backend
