@@ -29,4 +29,4 @@ Backend_URL = https://github.com/Akash8283/IoT-Backend
 
 🌐 Live Demo
 
-https://iot-frontend-theta-ashy.vercel.app
+[View on Netlify](https://iot-frontend-theta-ashy.vercel.app)
