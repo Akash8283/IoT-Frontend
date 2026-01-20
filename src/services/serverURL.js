@@ -1,3 +1,3 @@
-const serverURL = "https://iot-backend-is3r.onrender.com"
+const serverURL = "https://iot-backend-rvku.onrender.com"
 
 export default serverURL
