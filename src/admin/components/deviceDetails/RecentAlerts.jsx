@@ -31,6 +31,7 @@ function RecentAlerts() {
         }
     }
 
+    
   
   return (
     <div className="bg-white rounded-xl shadow border border-gray-100">

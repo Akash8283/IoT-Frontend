@@ -98,7 +98,7 @@ function Home() {
             <div className="w-14 h-14 bg-indigo-500/20 rounded-2xl flex items-center justify-center mb-6 text-indigo-400">
               <ShieldCheck className="w-7 h-7" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">System Admins</h3>
+            <h3 className="text-2xl font-bold text-white mb-3">System Admin</h3>
             <p className="text-slate-400 mb-6">Full control to configure devices, manage users, and oversee network health.</p>
             <ul className="space-y-3">
               {[

@@ -1,3 +1,3 @@
-const serverURL = "http://localhost:3000"
+const serverURL = "https://iot-backend-is3r.onrender.com"
 
 export default serverURL
