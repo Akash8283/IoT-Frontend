@@ -9,11 +9,11 @@ The UI is designed to handle real-time data updates while maintaining performanc
 
 🧩 Features
 
-📊 Interactive charts for temperature, humidity
-🚨 Real-time alerts display with severity indicators
-🧑‍💻 Role-based dashboards (Admin / User)
-📱 Fully responsive layout (desktop & tablet friendly)
-🎨 Clean UI with Tailwind CSS and reusable components
+📊 Interactive charts for temperature, humidity,
+🚨 Real-time alerts display with severity indicators,
+🧑‍💻 Role-based dashboards (Admin / User),
+📱 Fully responsive layout (desktop & tablet friendly),
+🎨 Clean UI with Tailwind CSS and reusable components,
 🔐 Secure API integration using JWT authentication
 
 🛠️ Tech Stack
